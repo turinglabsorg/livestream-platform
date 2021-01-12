@@ -29,7 +29,7 @@
 
 <style>
 .home {
-  padding-top: 30px;
+  padding-top: 0px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
