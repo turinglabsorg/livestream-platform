@@ -6,6 +6,11 @@ sudo apt-get install -y mongodb-org
 mkdir data
 ulimit -n 640000
 
+#INSTALL NODEJS
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install pm2 -g
+
 #DOWNLOADING NODE MODULES
 npm install
 cp example.env .env
