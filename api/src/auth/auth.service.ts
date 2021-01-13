@@ -16,7 +16,7 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await users.details(email)
     let hashed = await scrypta.hash(pass)
-    if (user && hashed === user.password && user.validated) {
+    if (user && hashed === user.password) {
       const { password, ...result } = user;
       return result;
     }else{

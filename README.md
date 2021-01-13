@@ -36,8 +36,7 @@ server {
         # sample HLS
         hls on;
         hls_path /tmp/hls;
-        hls_sync 2400ms;
-        hls_fragment 6s;
+        hls_fragment 3;
         hls_playlist_length 60;
         allow play all;
     }
@@ -50,7 +49,6 @@ Now substitute `/etc/nginx/sites-available/default` with:
 server {
     listen 80;
     listen [::]:80;
-    server_name ilmioserver.it;
 
     root /var/www/html;
 

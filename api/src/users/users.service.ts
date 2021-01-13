@@ -47,7 +47,7 @@ export class UsersService {
           })
 
           // Sending e-mail
-          mail.send(req.email, newUser.firstname + ' ' + newUser.lastname, 'welcome', "", { token: "https://" + process.env.PLATFORM_URL + "users/validate/" + newUser.token })
+          mail.send(req.email, req.email, 'welcome', "", { token: "https://" + process.env.PLATFORM_URL + "users/validate/" + newUser.token })
 
           logger.log('USER CREATED SUCCESSFULLY', 'users', newUser.hash, 'CREATED')
           response({ message: 'User successfully created', error: false })
@@ -77,7 +77,7 @@ export class UsersService {
     if (toRestore !== null && toRestore.hash !== undefined) {
       let token = await scrypta.hash(new Date().getTime().toString())
       toRestore.restore_token = token
-      mail.send(toRestore.email, toRestore.firstname + ' ' + toRestore.lastname, "welcome-password-reset", "", { restore_token: token, name: toRestore.firstname })
+      mail.send(toRestore.email, toRestore.email, "welcome-password-reset", "", { restore_token: token })
       await toRestore.save()
       return Promise.resolve({ success: true })
     } else {
