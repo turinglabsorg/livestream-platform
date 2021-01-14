@@ -11,8 +11,6 @@
         "
       >
         <div class="column forms">
-          <h1>Login<br />now.</h1>
-          <br />
           <b-field label="E-Mail">
             <b-input v-model="email"></b-input>
           </b-field>

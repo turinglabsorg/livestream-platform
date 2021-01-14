@@ -11,7 +11,7 @@
         "
       >
         <div class="column forms">
-          <h1>Restore<br />password.</h1>
+          <h1>Write your e-mail<br />to restore password.</h1>
           <br />
           <b-field label="E-Mail">
             <b-input v-model="email"></b-input>

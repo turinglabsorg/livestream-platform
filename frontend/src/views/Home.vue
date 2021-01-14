@@ -15,21 +15,15 @@
               <h1 class="title">Live,</h1>
               <h2 class="subtitle">Simple.</h2>
               <a href="/#/login"
-                ><b-button type="is-primary" size="is-large">Enter</b-button></a
+                ><b-button type="is-primary" size="is-large">ENTER</b-button></a
               >
           </div>
         </section>
       </div>
       <br /><br />
-      <LiveShows />
+      <LiveShows v-if="showLives" />
     </div>
     <div v-if="user">
-      <!--<video id="player" class="video-js vjs-default-skin" controls>
-        <source
-          src="http://104.248.243.16/hls/mystream.m3u8"
-          type="application/x-mpegURL"
-        />
-      </video>-->
       <LiveShows />
     </div>
   </div>
@@ -47,7 +41,8 @@ export default {
       user: null,
       username: "",
       password: "",
-      axios: axios
+      axios: axios,
+      showLives: false
     };
   },
   async mounted() {
@@ -57,6 +52,10 @@ export default {
       app.axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
       let profile = await app.axios.get(process.env.VUE_APP_BACKEND + '/users/profile')
       app.user = profile.data
+    }
+    let live = await app.axios.get(process.env.VUE_APP_BACKEND + "/live");
+    if(live.data.length > 0){
+      app.showLives = true
     }
   },
 };

@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <h1 style="font-size: 30px; margin: 10px 0 30px 0; text-align:center;">Upcoming shows</h1>
-    <div class="columns">
+  <div class="container" style="padding-top:60px">
+    <div class="columns" v-if="shows.length > 0">
+      <h1 style="font-size: 30px; margin: 10px 0 30px 0; text-align:center;">Upcoming shows</h1>
       <div class="column">
         <section
           v-for="live in shows"
@@ -46,6 +46,9 @@
           </div>
         </section>
       </div>
+    </div>
+    <div style="text-align:center; padding:15vh 0;" v-if="shows.length === 0">
+      <h1 style="font-size:80px;">:-(<br>No shows<br>right now!</h1>
     </div>
   </div>
 </template>

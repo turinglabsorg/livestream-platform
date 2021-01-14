@@ -11,8 +11,6 @@
         "
       >
         <div class="column forms">
-          <h1>Restore<br />password.</h1>
-          <br />
           <b-field label="New password">
             <b-input v-model="password"></b-input>
           </b-field>

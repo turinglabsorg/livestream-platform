@@ -21,7 +21,15 @@ export class LiveService {
   }
 
   async returnAll(): Promise<Array<Live>> {
-    return await this.liveModel.find({ user_hash: process.env.ADMIN_HASH })
+    let now = new Date().getTime();
+    let all = await this.liveModel.find({ user_hash: process.env.ADMIN_HASH })
+    let shows = []
+    for(let k in all){
+      if(now < parseInt(all[k].end)){
+        shows.push(all[k])
+      }
+    }
+    return shows;
   }
 
   async returnOne(slug): Promise<Live | any> {

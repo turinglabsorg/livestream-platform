@@ -44,6 +44,12 @@ export class Live {
 
   @Prop({ required: true })
   user_hash: string;
+
+  @Prop({ required: true })
+  start: string;
+
+  @Prop({ required: true })
+  end: string;
   
 }
 

@@ -9,7 +9,6 @@
             background-repeat: no-repeat;
           ">
         <div class="column forms">
-          <h1>Create<br>account.</h1><br>
           <b-field label="E-Mail">
             <b-input v-model="email"></b-input>
           </b-field>

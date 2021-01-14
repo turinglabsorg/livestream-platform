@@ -34,10 +34,11 @@
         text-align: center;
         color: #efefef;
         padding-bottom: 30px;
-        font-size: 12px;
+        font-size: 15px;
       "
     >
-      Livestream Platform
+      <b style="font-size:18px">Livestream Platform</b><br>
+      Want to play on this platform?<br>Write us a line here: <a href="mailto:info@livestre.am">info@livestre.am</a>
     </div>
   </div>
 </template>
@@ -45,7 +46,7 @@
 <style>
 body,
 html {
-  background: #000;
+  background: #050505!important;
   color: #fff;
   min-height: 100vh;
   font-family: "Manrope", sans-serif !important;
