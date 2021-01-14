@@ -53,6 +53,8 @@
               password: app.password
             })
             localStorage.setItem('livestream_auth', login.data.access_token)
+            window.location = '/#/'
+            location.reload()
           }else{
             this.$buefy.snackbar.open(registered.data.message)
           }
