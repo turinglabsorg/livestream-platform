@@ -30,7 +30,7 @@ const routes = [
     component: () => import('../views/Forgot.vue')
   },
   {
-    path: '/show/:show',
+    path: '/show/:slug',
     name: 'Show',
     component: () => import('../views/Show.vue')
   }

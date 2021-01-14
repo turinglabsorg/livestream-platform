@@ -57,12 +57,6 @@ export default {
       app.axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
       let profile = await app.axios.get(process.env.VUE_APP_BACKEND + '/users/profile')
       app.user = profile.data
-      setInterval(function(){
-        videojs("player", {
-          autoplay: false,
-          muted: false,
-        });
-      }, 500)
     }
   },
 };

@@ -19,7 +19,10 @@ export class Live {
   price: string; 
 
   @Prop({ required: true })
-  preview: string; 
+  date: string; 
+
+  @Prop({ required: true })
+  hour: string; 
 
   @Prop({ required: true })
   slug: string; 
@@ -38,6 +41,9 @@ export class Live {
 
   @Prop({ required: true })
   rtmp: string;
+
+  @Prop({ required: true })
+  user_hash: string;
   
 }
 

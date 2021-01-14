@@ -5,11 +5,12 @@ import { CacheModule, CacheInterceptor } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { LiveModule } from './live/live.module';
 import { MongooseModule } from '@nestjs/mongoose';
 require('dotenv').config()
 
 @Module({
-  imports: [CacheModule.register(), AuthModule, UsersModule, MongooseModule.forRoot(process.env.DB_CONNECTION)],
+  imports: [CacheModule.register(), AuthModule, UsersModule, LiveModule, MongooseModule.forRoot(process.env.DB_CONNECTION)],
   controllers: [AppController],
   providers: [
     {
