@@ -11,20 +11,15 @@
         "
       >
         <div class="column forms">
-          <h1>Login<br />now.</h1>
+          <h1>Restore<br />password.</h1>
           <br />
           <b-field label="E-Mail">
             <b-input v-model="email"></b-input>
           </b-field>
-          <b-field label="Password">
-            <b-input v-model="password" type="password"> </b-input>
-          </b-field>
           <br />
-          <b-button type="is-primary" v-on:click="login" size="is-large"
-            >LOGIN</b-button
+          <b-button type="is-primary" v-on:click="restorePassword" size="is-large"
+            >RESTORE</b-button
           ><br /><br />
-          <a href="/#/forgot">Forgot password?</a>
-          <br><br>
           <a href="/#/register">Don't have an account? Register.</a>
         </div>
       </div>
@@ -40,27 +35,16 @@ export default {
       user: null,
       axios: axios,
       email: "",
-      password: "",
     };
   },
   methods: {
-    async login() {
+    async restorePassword() {
       const app = this;
-      if (app.email !== "" && app.password !== "") {
-        let login = await app.axios.post(
-          process.env.VUE_APP_BACKEND + "/auth/login",
-          {
-            email: app.email,
-            password: app.password,
-          }
-        );
-        if (login.data.error === false) {
-          localStorage.setItem("livestream_auth", login.data.access_token);
-          this.$buefy.snackbar.open(`Login successful!`);
-          window.location = "/#/";
-          location.reload();
-        } else {
-          this.$buefy.snackbar.open(login.data.message);
+      if (app.email !== "") {
+        let restore = await app.axios.get(process.env.VUE_APP_BACKEND + "/users/restore/" + app.email);
+        if (restore.data.success) {
+          this.$buefy.snackbar.open(`If the email is present in our database we'll send the restoration link!`);
+          window.location = "/#/login";
         }
       } else {
         this.$buefy.snackbar.open(`Write your e-mail and a password first.`);

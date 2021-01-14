@@ -20,6 +20,16 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
+    path: '/restore/:token',
+    name: 'Restore',
+    component: () => import('../views/Restore.vue')
+  },
+  {
+    path: '/forgot',
+    name: 'Forgot',
+    component: () => import('../views/Forgot.vue')
+  },
+  {
     path: '/show/:show',
     name: 'Show',
     component: () => import('../views/Show.vue')

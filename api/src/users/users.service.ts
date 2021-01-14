@@ -39,6 +39,7 @@ export class UsersService {
           newUser.is_admin = false
           newUser.is_active = true
           newUser.validated = false
+          newUser.attendee = []
           newUser.timestamp_registration = new Date().getTime()
           newUser.token = await scrypta.hash(newUser.timestamp_registration.toString())
 
@@ -97,25 +98,6 @@ export class UsersService {
     }
   }
 
-  async update(req): Promise<User | any> {
-    if (req.user.email) {
-      let toedit = await this.userModel.findOne({ email: req.user.email }).exec()
-      let readonly = ["password", "hash", "level", "is_admin", "is_active", "role", "timestamp_registration", "_id"]
-      for (let k in toedit) {
-        if (req.body[k] !== undefined && readonly.indexOf(k) === -1) {
-          toedit[k] = req.body[k]
-        }
-      }
-      await toedit.save()
-      logger.log('USER EDITED SUCCESSFULLY', 'users', toedit.hash, 'EDIT')
-      let updated = await this.userModel.findOne({ email: req.user.email }).exec()
-      let result = users.parse(updated)
-      return result
-    } else {
-      return { message: 'Unauthorized', error: true }
-    }
-  }
-
   async changePassword(req): Promise<User | any> {
     if (req.user.email && req.body.old !== undefined && req.body.password !== undefined) {
       let toedit = await this.userModel.findOne({ email: req.user.email }).exec()
@@ -127,21 +109,6 @@ export class UsersService {
         return { message: 'Password changed correctly', error: false }
       } else {
         return { message: 'Password is invalid, retry', error: true }
-      }
-    } else {
-      return { message: 'Unauthorized', error: true }
-    }
-  }
-
-  async deleteUser(req): Promise<User | any> {
-    if (req.user.email) {
-      let todelete = await this.userModel.findOne({ email: req.user.email }).exec()
-      if (todelete !== null) {
-        await this.userModel.deleteOne({ email: req.user.email }).exec()
-        logger.log('USER DELETED SUCCESSFULLY', 'users', todelete.hash, 'DELETED')
-        return { message: 'Bye bye', error: false }
-      } else {
-        return { message: 'Can\'t find user', error: true }
       }
     } else {
       return { message: 'Unauthorized', error: true }
@@ -161,60 +128,4 @@ export class UsersService {
     }
   }
   
-  /**
-   * Admin functions
-   */
-
-  async find(req): Promise<User | any> {
-    if (req.email) {
-      let user = await users.details(req.email)
-      if (user.level !== undefined && user.level === 'admin') {
-        let user = await this.userModel.findOne({ email: req.email }).exec();
-        return user
-      } else {
-        return { message: 'Unauthorized', error: true }
-      }
-    } else {
-      return { message: 'Unauthorized', error: true }
-    }
-  }
-
-  async edit(req): Promise<User | any> {
-    if (req.user.email) {
-      let user = await users.details(req.user.email)
-      if (user.level !== undefined && user.level === 'admin') {
-        if (req.body.email !== undefined) {
-          let toedit = await this.userModel.findOne({ email: req.body.email }).exec()
-          for (let k in toedit) {
-            if (req.body[k] !== undefined) {
-              toedit[k] = req.body[k]
-            }
-          }
-          await toedit.save()
-          logger.log('USER EDITED SUCCESSFULLY', 'users', toedit.hash, 'EDIT')
-          let updated = await this.userModel.findOne({ email: req.body.email }).exec()
-          return updated
-        } else {
-          return { message: 'No e-mail provided', error: true }
-        }
-      } else {
-        return { message: 'Unauthorized', error: true }
-      }
-    } else {
-      return { message: 'Unauthorized', error: true }
-    }
-  }
-
-  async findAll(req): Promise<any> {
-    if (req.email) {
-      let user = await users.details(req.email)
-      if (user.level !== undefined && user.level === 'admin') {
-        return await this.userModel.find().exec();
-      } else {
-        return { message: 'Unauthorized', error: true }
-      }
-    } else {
-      return { message: 'Unauthorized', error: true }
-    }
-  }
 }

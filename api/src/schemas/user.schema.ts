@@ -11,7 +11,7 @@ export class User {
 
   @Prop({ required: false })
   token: string;
-  
+
   @Prop({ required: false })
   restore_token: string;
 
@@ -37,6 +37,9 @@ export class User {
 
   @Prop({ required: true })
   timestamp_registration: number;
+
+  @Prop({ required: false })
+  attendee: Array<string>;
 
 }
 

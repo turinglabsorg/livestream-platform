@@ -49,39 +49,11 @@ export class UsersController {
     return users.parse(user)
   }
 
-
-  @UseGuards(JwtAuthGuard)
-  @Post('update')
-  async update(@Request() req): Promise<User[]> {
-    let updated = await this.usersService.update(req);
-    return updated
-  }
-
   @UseGuards(JwtAuthGuard)
   @Post('change-password')
   async changePassword(@Request() req): Promise<User[]> {
     let updated = await this.usersService.changePassword(req);
     return updated
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post('change-password')
-  async deleteUser(@Request() req): Promise<User[]> {
-    let updated = await this.usersService.deleteUser(req);
-    return updated
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  async findAll(@Request() req): Promise<User[]> {
-    return this.usersService.findAll(req.user);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post('edit')
-  async edit(@Request() req): Promise<User[]> {
-    let edited = await this.usersService.edit(req);
-    return edited
   }
 
 }

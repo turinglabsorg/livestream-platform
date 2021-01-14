@@ -182,10 +182,14 @@ export default {
     let jwt = localStorage.getItem("livestream_auth");
     if (jwt !== null) {
       app.axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
-      let profile = await app.axios.get(
-        process.env.VUE_APP_BACKEND + "/users/profile"
-      );
-      app.user = profile.data;
+      try{
+        let profile = await app.axios.get(
+          process.env.VUE_APP_BACKEND + "/users/profile"
+        );
+        app.user = profile.data;
+      }catch(e){
+        localStorage.setItem("livestream_auth", null);
+      }
     }
   },
   methods: {
