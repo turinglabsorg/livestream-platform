@@ -21,6 +21,13 @@ export class LiveController {
     return live
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('purchase')
+  async purchaseLive(@Request() req) {
+    let live = await this.liveService.purchaseLive(req)
+    return live
+  }
+
   @Get(':slug')
   async returnLive(@Request() req) {
     return await this.liveService.returnOne(req.params.slug)

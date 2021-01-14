@@ -166,6 +166,12 @@ h1 {
     height: 40px !important;
   }
 }
+
+.hero {
+  background-position: center right !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
 </style>
 
 <script>
