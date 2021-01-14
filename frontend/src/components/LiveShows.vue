@@ -1,50 +1,52 @@
 <template>
   <div class="container" style="padding-top:60px">
-    <div class="columns" v-if="shows.length > 0">
-      <h1 style="font-size: 30px; margin: 10px 0 30px 0; text-align:center;">Upcoming shows</h1>
-      <div class="column">
-        <section
-          v-for="live in shows"
-          v-bind:key="live._id"
-          class="hero"
-          :style="`background-image: url('` + live.image + `');`"
-        >
-          <div class="hero-body">
-            <div v-if="user !== null">
-              <h2 class="subtitle" v-if="user.attendee.indexOf(live.slug) === -1">{{ live.price }}€</h2>
-            </div>
-            <div v-if="user === null">
-              <h2 class="subtitle">{{ live.price }}€</h2>
-            </div>
-            <h2 class="subtitle">{{ live.subtitle }}</h2>
-            <h1 class="title">{{ live.name }}</h1>
-            <i style="color:#fff">Start at</i><br>
-            <time style="color:#fff;font-size:40px;">{{ live.date }} <span style="font-size:18px">at {{ live.hour }}</span></time><br /><br />
-            <a v-for="tag in live.tags" v-bind:key="tag" href="#">#{{ tag }}&nbsp;</a>
-            <br><br>
-            <div v-if="user !== null">
-              <a :href="'/#/show/' + live.slug">
-                <b-button
-                  v-if="user !== undefined && user.attendee.indexOf(live.slug) !== -1"
-                  type="is-primary"
-                  size="is-large"
-                  >WATCH</b-button
-                >
-                <b-button
-                  v-if="user !== undefined && user.attendee.indexOf(live.slug) === -1"
-                  type="is-primary"
-                  size="is-large"
-                  >PURCHASE</b-button
+    <div v-if="shows.length > 0">
+      <h1 style="font-size: 30px; margin: 10px 0 30px 0; text-align:center; width:100%;">Upcoming shows</h1>
+      <div class="columns" >
+        <div class="column">
+          <section
+            v-for="live in shows"
+            v-bind:key="live._id"
+            class="hero"
+            :style="`background-image: url('` + live.image + `');`"
+          >
+            <div class="hero-body">
+              <div v-if="user !== null">
+                <h2 class="subtitle" v-if="user.attendee.indexOf(live.slug) === -1">{{ live.price }}€</h2>
+              </div>
+              <div v-if="user === null">
+                <h2 class="subtitle">{{ live.price }}€</h2>
+              </div>
+              <h2 class="subtitle">{{ live.subtitle }}</h2>
+              <h1 class="title">{{ live.name }}</h1>
+              <i style="color:#fff">Start at</i><br>
+              <time style="color:#fff;font-size:40px;">{{ live.date }} <span style="font-size:18px">at {{ live.hour }}</span></time><br /><br />
+              <a v-for="tag in live.tags" v-bind:key="tag" href="#">#{{ tag }}&nbsp;</a>
+              <br><br>
+              <div v-if="user !== null">
+                <a :href="'/#/show/' + live.slug">
+                  <b-button
+                    v-if="user !== undefined && user.attendee.indexOf(live.slug) !== -1"
+                    type="is-primary"
+                    size="is-large"
+                    >WATCH</b-button
+                  >
+                  <b-button
+                    v-if="user !== undefined && user.attendee.indexOf(live.slug) === -1"
+                    type="is-primary"
+                    size="is-large"
+                    >PURCHASE</b-button
+                  >
+                </a>
+              </div>
+              <a v-if="!user" href="/#/login">
+                <b-button type="is-primary" size="is-large"
+                  >LOGIN TO PURCHASE</b-button
                 >
               </a>
             </div>
-            <a v-if="!user" href="/#/login">
-              <b-button type="is-primary" size="is-large"
-                >LOGIN TO PURCHASE</b-button
-              >
-            </a>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
     <div style="text-align:center; padding:15vh 0;" v-if="shows.length === 0">
